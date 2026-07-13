@@ -319,3 +319,76 @@ button:disabled{
     color:#94a3b8;
 
 }
+/*==========================
+RECENT REQUESTS
+==========================*/
+
+.history-card{
+
+margin-top:30px;
+
+background:#1f2937;
+
+padding:25px;
+
+border-radius:18px;
+
+animation:fadeUp .5s ease;
+
+}
+
+.history-card h2{
+
+margin-bottom:20px;
+
+}
+
+.history-item{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:14px 0;
+
+border-bottom:1px solid #374151;
+
+}
+
+.history-item:last-child{
+
+border-bottom:none;
+
+}
+
+.history-item strong{
+
+color:white;
+
+display:block;
+
+margin-bottom:6px;
+
+}
+
+.history-item p{
+
+margin:0;
+
+color:#cbd5e1;
+
+font-size:14px;
+
+max-width:500px;
+
+}
+
+.history-item span{
+
+font-weight:bold;
+
+color:#22c55e;
+
+}

@@ -4,12 +4,14 @@ import Header from "./components/Header";
 import TextInput from "./components/TextInput";
 import ActionButtons from "./components/ActionButtons";
 import ResultCard from "./components/ResultCard";
-import FileUpload from "./components/FileUpload";
+import DistributionChart from "./components/DistributionChart";
+import RecentRequests from "./components/RecentRequests";
 
 export default function App() {
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
+  const [history, setHistory] = useState([]);
 
   async function analyzeDocument() {
     if (!text.trim()) {
@@ -40,14 +42,20 @@ export default function App() {
 
       const data = await response.json();
 
-      setResult(Array.isArray(data) ? data[0] : data);
+      const responseData = Array.isArray(data)
+        ? data[0]
+        : data;
 
-    } catch (err) {
+      setResult(responseData);
 
-      console.error(err);
+      setHistory((prev) => [
+        responseData,
+        ...prev.slice(0, 9),
+      ]);
 
+    } catch (error) {
+      console.error(error);
       alert("Cannot connect to backend.");
-
     }
 
     setLoading(false);
@@ -64,8 +72,6 @@ export default function App() {
 
         <Header />
 
-        <FileUpload setText={setText} />
-
         <TextInput
           text={text}
           setText={setText}
@@ -80,6 +86,10 @@ export default function App() {
         />
 
         <ResultCard result={result} />
+
+        <DistributionChart history={history} />
+
+        <RecentRequests history={history} />
 
       </div>
     </div>
