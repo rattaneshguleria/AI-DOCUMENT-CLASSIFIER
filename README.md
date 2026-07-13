@@ -27,7 +27,7 @@ The application provides a modern React interface where users can paste or uploa
 
 ## 📸 Preview
 
-<img width="100%" src="preview.png"/>
+<img width="100%" src="preview/preview.png"/>
 
 ---
 
