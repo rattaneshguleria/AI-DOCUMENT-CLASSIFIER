@@ -12,57 +12,6 @@ const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY,
 });
 
-function classifyDocument(text) {
-  const lower = text.toLowerCase();
-
-  if (
-    lower.includes("not working") ||
-    lower.includes("issue") ||
-    lower.includes("problem") ||
-    lower.includes("error") ||
-    lower.includes("complaint")
-  ) {
-    return "Complaint";
-  }
-
-  if (
-    lower.includes("how") ||
-    lower.includes("what") ||
-    lower.includes("where") ||
-    lower.includes("when") ||
-    lower.includes("?")
-  ) {
-    return "Inquiry";
-  }
-
-  if (
-    lower.includes("suggest") ||
-    lower.includes("feedback") ||
-    lower.includes("recommend")
-  ) {
-    return "Feedback";
-  }
-
-  if (
-    lower.includes("please") ||
-    lower.includes("need") ||
-    lower.includes("request")
-  ) {
-    return "Request";
-  }
-
-  if (
-    lower.includes("thanks") ||
-    lower.includes("thank you") ||
-    lower.includes("great") ||
-    lower.includes("excellent")
-  ) {
-    return "Appreciation";
-  }
-
-  return "Inquiry";
-}
-
 app.get("/", (req, res) => {
   res.json({
     message: "AI Document Classifier Backend Running",
@@ -79,50 +28,97 @@ app.post("/classify", async (req, res) => {
       });
     }
 
-    const category = classifyDocument(text);
-
     const completion = await groq.chat.completions.create({
       model: "llama-3.3-70b-versatile",
       temperature: 0.2,
+      response_format: {
+        type: "json_object",
+      },
       messages: [
         {
-          role: "user",
+          role: "system",
           content: `
-You are an AI assistant.
+You are an expert customer support document classifier.
 
-The document has already been classified.
+Classify every customer message into EXACTLY ONE of these five categories:
 
-Category:
-${category}
+1. Complaint
+2. Inquiry
+3. Feedback
+4. Request
+5. Appreciation
 
-Customer Text:
-${text}
+Definitions:
 
-Your job is ONLY to generate:
+Complaint:
+Customer reports a problem, defect, billing issue, service issue, delay, damaged item, poor experience or dissatisfaction.
 
-1. confidence (80-100)
-2. reason (one short sentence)
+Examples:
+- Internet is not working.
+- I was charged twice.
+- My order never arrived.
+- Technician never came.
+- App crashes every time.
+
+Inquiry:
+Customer is asking for information or asking a question.
+
+Examples:
+- What is my order status?
+- How do I reset my password?
+- Where is my package?
+- What are your business hours?
+
+Feedback:
+Customer is giving suggestions or opinions to improve something.
+
+Examples:
+- Your website should load faster.
+- Please add dark mode.
+- I think the UI could be better.
+- The app needs more filters.
+
+Request:
+Customer is asking the company to perform an action.
+
+Examples:
+- Change my registered email.
+- Cancel my subscription.
+- Please update my phone number.
+- Enable my account.
+- Send me the invoice.
+
+Appreciation:
+Customer is expressing gratitude or praising the service.
+
+Examples:
+- Thank you for your help.
+- Excellent support.
+- Amazing experience.
+- Great service.
 
 Return ONLY valid JSON.
 
 Example:
 
 {
-  "confidence":98,
-  "reason":"Customer reports a service issue."
+  "category":"Complaint",
+  "confidence":97,
+  "reason":"Customer reports a billing issue."
 }
 `,
         },
+        {
+          role: "user",
+          content: text,
+        },
       ],
-      response_format: {
-        type: "json_object",
-      },
     });
 
     const ai = JSON.parse(completion.choices[0].message.content);
 
     res.json({
-      category,
+      category: ai.category,
       confidence: ai.confidence,
       reason: ai.reason,
     });
