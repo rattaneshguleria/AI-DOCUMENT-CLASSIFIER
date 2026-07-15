@@ -7,6 +7,8 @@ import ResultCard from "./components/ResultCard";
 import DistributionChart from "./components/DistributionChart";
 import RecentRequests from "./components/RecentRequests";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function App() {
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
@@ -23,18 +25,15 @@ export default function App() {
     setResult(null);
 
     try {
-      const response = await fetch(
-        "http://localhost:5000/classify",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            text,
-          }),
-        }
-      );
+      const response = await fetch(`${API_URL}/classify`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          text,
+        }),
+      });
 
       if (!response.ok) {
         throw new Error("Server Error");
@@ -69,7 +68,6 @@ export default function App() {
   return (
     <div className="container">
       <div className="card">
-
         <Header />
 
         <TextInput
@@ -90,7 +88,6 @@ export default function App() {
         <DistributionChart history={history} />
 
         <RecentRequests history={history} />
-
       </div>
     </div>
   );
