@@ -249,4 +249,3 @@ This project is released under the **MIT License**.
 ---
 
 ⭐ If you found this project useful, consider giving it a star!
-Testing YOLO achievement.
