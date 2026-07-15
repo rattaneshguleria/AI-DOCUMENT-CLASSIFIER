@@ -1,218 +1,251 @@
 # 🤖 AI Document Classifier
 
-An AI-powered web application that automatically classifies customer documents into predefined categories using an intelligent AI workflow built with **n8n** and **Ollama (Llama 3.2)**.
-
-The application provides a modern React interface where users can paste or upload customer documents and receive:
-
-- 📂 Document Category
-- 🎯 Confidence Score
-- 💡 AI-generated Reason
+An AI-powered web application that intelligently classifies customer documents using **Groq Llama 3.3 70B**. The system analyzes customer messages, predicts the most appropriate category, generates a confidence score, and explains the reasoning behind each prediction.
 
 ---
 
-## 🚀 Features
+## 🚀 Live Demo
+
+### 🌐 Frontend
+https://ai-document-classifier.vercel.app/
+
+### ⚙️ Backend API
+https://ai-document-classifier-3qv9.onrender.com/
+
+---
+
+# ✨ Features
 
 - 🤖 AI-powered document classification
-- 📄 Customer document analysis
-- 🎯 Confidence score prediction
+- 🧠 Groq Llama 3.3 70B integration
+- 📂 Intelligent classification into:
+  - Complaint
+  - Inquiry
+  - Feedback
+  - Request
+  - Appreciation
+- 📊 AI-generated confidence score
 - 💡 AI-generated explanation
-- 📂 Drag & Drop TXT file upload
-- ⚡ Real-time classification
-- 🎨 Modern responsive UI
-- 🧩 Modular React components
-- 🔗 n8n workflow automation
-- 🦙 Local LLM using Ollama (Llama 3.2)
+- 📈 Category distribution chart
+- 📝 Recent classification history
+- 🎨 Modern glassmorphism interface
+- 📱 Fully responsive design
+- ⚡ Fast React + Vite frontend
+- 🌍 Cloud deployment using Vercel & Render
+- 🔒 Secure API key management using environment variables
 
 ---
 
-## 📸 Preview
+# 🛠 Tech Stack
 
-<img width="100%" src="preview/preview.png"/>
+## Frontend
 
----
-
-## 🏗 Project Architecture
-
-```
-React Frontend
-      │
-      ▼
-Express Backend API
-      │
-      ▼
-n8n Workflow
-      │
-      ▼
-Ollama (Llama 3.2)
-      │
-      ▼
-AI Response
-      │
-      ▼
-React UI
-```
-
----
-
-## 🛠 Tech Stack
-
-### Frontend
-
-- React
+- React.js
 - Vite
-- JavaScript
 - CSS3
+- JavaScript
+- Fetch API
 
-### Backend
+## Backend
 
 - Node.js
 - Express.js
+- Groq SDK
+- CORS
+- dotenv
 
-### AI
+## AI
 
-- Ollama
-- Llama 3.2
+- Groq API
+- Llama-3.3-70B-Versatile
 
-### Workflow Automation
+## Deployment
 
-- n8n
+- Vercel
+- Render
 
 ---
 
-## 📂 Project Structure
+# 📂 Project Structure
 
 ```
 AI-DOCUMENT-CLASSIFIER
-
-frontend/
 │
-├── src/
-│   ├── components/
-│   │   ├── Header.jsx
-│   │   ├── TextInput.jsx
-│   │   ├── ActionButtons.jsx
-│   │   ├── ResultCard.jsx
-│   │   ├── ConfidenceBar.jsx
-│   │   ├── CategoryBadge.jsx
-│   │   ├── LoadingSpinner.jsx
-│   │   └── FileUpload.jsx
+├── backend
+│   ├── server.js
+│   ├── package.json
+│   ├── .env
+│   └── ...
+│
+├── frontend
+│   ├── src
+│   │   ├── components
+│   │   ├── App.jsx
+│   │   ├── style.css
+│   │   └── ...
 │   │
-│   ├── App.jsx
-│   ├── styles.css
-│   └── main.jsx
+│   ├── package.json
+│   ├── vite.config.js
+│   └── .env
 │
-backend/
-│
-├── server.js
-├── .env
-└── package.json
+├── README.md
+└── .gitignore
 ```
 
 ---
 
-## ⚙ Installation
+# ⚙️ Installation
 
-### Clone Repository
+## Clone the Repository
 
 ```bash
 git clone https://github.com/rattaneshguleria/AI-DOCUMENT-CLASSIFIER.git
+
+cd AI-DOCUMENT-CLASSIFIER
 ```
 
-### Install Frontend
+---
 
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-### Install Backend
+# Backend Setup
 
 ```bash
 cd backend
+
 npm install
-node server.js
 ```
 
-### Start Ollama
+Create a `.env` file inside the backend folder.
 
-```bash
-ollama serve
+```env
+GROQ_API_KEY=YOUR_GROQ_API_KEY
+PORT=5000
 ```
 
-Run the model:
+Run the backend
 
 ```bash
-ollama run llama3.2
-```
-
-### Start n8n
-
-```bash
-npx n8n
+npm run dev
 ```
 
 ---
 
-## 🔄 Workflow
+# Frontend Setup
 
-1. User enters a customer document.
-2. React sends the document to the backend.
-3. Backend forwards it to n8n.
-4. n8n classifies the document.
-5. Ollama generates confidence and reasoning.
-6. Response is returned to the frontend.
+```bash
+cd frontend
+
+npm install
+```
+
+Create a `.env` file inside the frontend folder.
+
+```env
+VITE_API_URL=http://localhost:5000
+```
+
+Run the frontend
+
+```bash
+npm run dev
+```
 
 ---
 
-## 📂 Supported Categories
+# API
 
-- Complaint
-- Inquiry
-- Feedback
-- Request
-- Appreciation
-- Other
+## POST `/classify`
 
----
+### Request
 
-## 🎯 Sample Output
+```json
+{
+  "text": "My internet has not been working for two days."
+}
+```
+
+### Response
 
 ```json
 {
   "category": "Complaint",
-  "confidence": 97,
-  "reason": "Customer reports a service issue."
+  "confidence": 98,
+  "reason": "Customer reports an unresolved internet service issue."
 }
 ```
 
 ---
 
-## 🔮 Future Improvements
+# Classification Categories
 
-- PDF Support
-- DOCX Support
-- OCR Image Classification
-- User Authentication
-- Dashboard Analytics
-- Classification History
-- Dark Mode
-- Export Results
-- Docker Deployment
-- Cloud AI Model Support
+| Category | Description |
+|-----------|-------------|
+| Complaint | Reports issues, delays, defects, billing problems or dissatisfaction |
+| Inquiry | Requests information or asks questions |
+| Feedback | Shares suggestions, recommendations or opinions |
+| Request | Asks the organization to perform an action |
+| Appreciation | Expresses gratitude or compliments |
 
 ---
 
-## 👨‍💻 Author
+# Deployment
+
+## Frontend
+
+**Platform:** Vercel
+
+Build Command
+
+```bash
+npm run build
+```
+
+---
+
+## Backend
+
+**Platform:** Render
+
+Environment Variable
+
+```env
+GROQ_API_KEY=YOUR_GROQ_API_KEY
+```
+
+---
+
+# Future Enhancements
+
+- 📄 PDF document classification
+- 📄 DOCX document support
+- 📄 TXT file support
+- 🖼 OCR image text extraction
+- 😊 Sentiment analysis
+- 🚨 Priority detection
+- 📥 Export reports (PDF/CSV)
+- 📊 Advanced analytics dashboard
+- 🌙 Dark / Light mode
+- 📂 Drag & Drop document upload
+- 🌐 Multi-language support
+- 👤 User authentication
+
+---
+
+# Author
 
 **Rattanesh Guleria**
 
-GitHub:
+B.Tech Computer Science Engineering
 
-https://github.com/rattaneshguleria
+Lovely Professional University
+
+GitHub: https://github.com/rattaneshguleria
 
 ---
 
-## ⭐ Support
+# License
 
-If you like this project, consider giving it a ⭐ on GitHub.
+This project is released under the **MIT License**.
+
+---
+
+⭐ If you found this project useful, consider giving it a star!
