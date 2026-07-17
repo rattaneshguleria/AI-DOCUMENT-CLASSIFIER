@@ -1,161 +1,151 @@
 # 🤖 AI Document Classifier
 
-An AI-powered web application that intelligently classifies customer documents using **Groq Llama 3.3 70B**. The system analyzes customer messages, predicts the most appropriate category, generates a confidence score, and explains the reasoning behind each prediction.
+<div align="center">
+
+# 🤖 AI Document Classifier
+
+### Intelligent Document Classification using React, Node.js, n8n & Gemini AI
+
+![React](https://img.shields.io/badge/React-Frontend-61DAFB?style=for-the-badge&logo=react)
+![Node](https://img.shields.io/badge/Node.js-Backend-339933?style=for-the-badge&logo=node.js)
+![n8n](https://img.shields.io/badge/n8n-Automation-EA4B71?style=for-the-badge)
+![Gemini](https://img.shields.io/badge/Google-Gemini-4285F4?style=for-the-badge&logo=google)
+
+Analyze → Classify → Automate
+
+</div>
 
 ---
 
-## 🚀 Live Demo
+## 📖 Overview
 
-### 🌐 Frontend
-https://ai-document-classifier.vercel.app/
-
-### ⚙️ Backend API
-https://ai-document-classifier-3qv9.onrender.com/
+AI Document Classifier is a full-stack application that classifies user-submitted text into predefined categories using an AI workflow. The frontend is built with React, the backend uses Node.js/Express, and classification is handled through an n8n workflow connected to a large language model.
 
 ---
 
-# ✨ Features
+## ✨ Features
 
-- 🤖 AI-powered document classification
-- 🧠 Groq Llama 3.3 70B integration
-- 📂 Intelligent classification into:
-  - Complaint
-  - Inquiry
-  - Feedback
-  - Request
-  - Appreciation
-- 📊 AI-generated confidence score
-- 💡 AI-generated explanation
-- 📈 Category distribution chart
-- 📝 Recent classification history
-- 🎨 Modern glassmorphism interface
-- 📱 Fully responsive design
-- ⚡ Fast React + Vite frontend
-- 🌍 Cloud deployment using Vercel & Render
-- 🔒 Secure API key management using environment variables
+- 📄 AI document classification
+- 🤖 Gemini AI integration (or compatible LLM)
+- ⚛️ React frontend
+- 🚀 Node.js + Express backend
+- 🔄 n8n workflow automation
+- 📊 Classification confidence display
+- 🕒 Request history
+- 🌐 REST API
 
 ---
 
-# 🛠 Tech Stack
+## 🏗️ System Architecture
 
-## Frontend
-
-- React.js
-- Vite
-- CSS3
-- JavaScript
-- Fetch API
-
-## Backend
-
-- Node.js
-- Express.js
-- Groq SDK
-- CORS
-- dotenv
-
-## AI
-
-- Groq API
-- Llama-3.3-70B-Versatile
-
-## Deployment
-
-- Vercel
-- Render
-
----
-
-# 📂 Project Structure
-
+```mermaid
+flowchart LR
+A[User] --> B[React Frontend]
+B --> C[Express Backend]
+C --> D[n8n Webhook]
+D --> E[Gemini AI]
+E --> F[Classification]
+F --> G[Response]
 ```
-AI-DOCUMENT-CLASSIFIER
-│
-├── backend
-│   ├── server.js
-│   ├── package.json
-│   ├── .env
-│   └── ...
-│
-├── frontend
-│   ├── src
-│   │   ├── components
-│   │   ├── App.jsx
-│   │   ├── style.css
-│   │   └── ...
-│   │
-│   ├── package.json
-│   ├── vite.config.js
-│   └── .env
-│
+
+---
+
+## 🔄 Workflow
+
+1. User enters text.
+2. React sends request to Express.
+3. Express forwards the request to an n8n webhook.
+4. n8n invokes the AI model.
+5. The AI returns the document category.
+6. Results are displayed in the UI.
+
+---
+
+## 🧰 Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| Frontend | React |
+| Backend | Node.js + Express |
+| AI | Gemini API / Compatible LLM |
+| Workflow | n8n |
+| API | REST |
+| Deployment | Docker / Render / Vercel (optional) |
+
+---
+
+## 📂 Suggested Project Structure
+
+```text
+AI-DOCUMENT-CLASSIFIER/
+├── frontend/
+├── backend/
+├── workflow/
+├── assets/
+│   ├── banner.png
+│   ├── architecture.png
+│   ├── workflow.png
+│   └── screenshots/
 ├── README.md
-└── .gitignore
+└── docker-compose.yml
 ```
 
 ---
 
-# ⚙️ Installation
+## 📸 Screenshots
 
-## Clone the Repository
+Add screenshots here:
+
+- Home Page
+- Classification Result
+- Analytics
+- n8n Workflow
+- API Response
+
+---
+
+## ⚙️ Installation
 
 ```bash
 git clone https://github.com/rattaneshguleria/AI-DOCUMENT-CLASSIFIER.git
-
 cd AI-DOCUMENT-CLASSIFIER
 ```
 
----
-
-# Backend Setup
-
-```bash
-cd backend
-
-npm install
-```
-
-Create a `.env` file inside the backend folder.
-
-```env
-GROQ_API_KEY=YOUR_GROQ_API_KEY
-PORT=5000
-```
-
-Run the backend
-
-```bash
-npm run dev
-```
-
----
-
-# Frontend Setup
+Install frontend:
 
 ```bash
 cd frontend
-
 npm install
+npm start
 ```
 
-Create a `.env` file inside the frontend folder.
-
-```env
-VITE_API_URL=http://localhost:5000
-```
-
-Run the frontend
+Install backend:
 
 ```bash
+cd backend
+npm install
 npm run dev
 ```
 
 ---
 
-# API
+## 🔑 Environment Variables
 
-## POST `/classify`
+Example:
 
-### Request
+```env
+PORT=5000
+N8N_WEBHOOK=YOUR_WEBHOOK_URL
+GEMINI_API_KEY=YOUR_API_KEY
+```
+
+---
+
+## 🚀 API
+
+### POST /classify
+
+Request
 
 ```json
 {
@@ -163,89 +153,57 @@ npm run dev
 }
 ```
 
-### Response
+Response
 
 ```json
 {
-  "category": "Complaint",
-  "confidence": 98,
-  "reason": "Customer reports an unresolved internet service issue."
+  "category":"Complaint",
+  "confidence":0.98
 }
 ```
 
 ---
 
-# Classification Categories
+## 🛣️ Roadmap
 
-| Category | Description |
-|-----------|-------------|
-| Complaint | Reports issues, delays, defects, billing problems or dissatisfaction |
-| Inquiry | Requests information or asks questions |
-| Feedback | Shares suggestions, recommendations or opinions |
-| Request | Asks the organization to perform an action |
-| Appreciation | Expresses gratitude or compliments |
-
----
-
-# Deployment
-
-## Frontend
-
-**Platform:** Vercel
-
-Build Command
-
-```bash
-npm run build
-```
+- PDF upload
+- DOCX support
+- OCR integration
+- Batch classification
+- User authentication
+- Dashboard analytics
+- Multi-language support
 
 ---
 
-## Backend
+## 🤝 Contributing
 
-**Platform:** Render
-
-Environment Variable
-
-```env
-GROQ_API_KEY=YOUR_GROQ_API_KEY
-```
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Open a Pull Request
 
 ---
 
-# Future Enhancements
+## 📜 License
 
-- 📄 PDF document classification
-- 📄 DOCX document support
-- 📄 TXT file support
-- 🖼 OCR image text extraction
-- 😊 Sentiment analysis
-- 🚨 Priority detection
-- 📥 Export reports (PDF/CSV)
-- 📊 Advanced analytics dashboard
-- 🌙 Dark / Light mode
-- 📂 Drag & Drop document upload
-- 🌐 Multi-language support
-- 👤 User authentication
+MIT License
 
 ---
 
-# Author
+## 👨‍💻 Developer
 
 **Rattanesh Guleria**
 
-B.Tech Computer Science Engineering
-
+B.Tech Computer Science Engineering  
 Lovely Professional University
 
 GitHub: https://github.com/rattaneshguleria
 
 ---
 
-# License
+<div align="center">
 
-This project is released under the **MIT License**.
+### ⭐ If you found this project useful, please consider starring the repository!
 
----
-
-⭐ If you found this project useful, consider giving it a st
+</div>
